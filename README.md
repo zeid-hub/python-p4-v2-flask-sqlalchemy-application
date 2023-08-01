@@ -302,7 +302,8 @@ The expression `species=species` passed into the `filter_by` function may be a
 bit confusing. The `species` before the equal sign refers to the table column,
 while `species` after the equal sign refers to the route parameter.
 
-Let's test this new route (your result will differ):
+Let's test this new route (your result will differ). Navigate to
+127.0.0.1:5555/species/Dog.
 
 ![query by species](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/species.png)
 
