@@ -34,8 +34,7 @@ $ export FLASK_APP=app.py
 $ export FLASK_RUN_PORT=5555
 ```
 
-Execute the command `tree` within the `server` directory. The directory already
-contains the folders `instance` and `migrations`:
+Execute the command `tree` within the `server` directory.
 
 ```command
 $ tree
@@ -58,9 +57,12 @@ $ tree
     └── codegrade_test.py
 ```
 
-The directory `server/migrations/versions` contains an initial migration script.
-Since a migration script already exists, we can just run the following command
-to initialize the database:
+The commands `flask db init` and `flask db migrate` have already been run, so
+the `server` directory contains the `instance` and `migrations` directories, and
+the directory `server/migrations/versions` contains an initial migration script.
+
+Run the following command to initialize the database from the existing migration
+script:
 
 ```console
 $ flask db upgrade head
