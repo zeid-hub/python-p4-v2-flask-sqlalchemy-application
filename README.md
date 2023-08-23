@@ -43,14 +43,13 @@ $ tree
 ```text
 .
 ├── app.py
-├── instance
 ├── migrations
 │   ├── README
 │   ├── alembic.ini
 │   ├── env.py
 │   ├── script.py.mako
 │   └── versions
-│       └── 7d3a66e71a07_initial_migration.py
+│       └── 51b06098cc9e_initial_migration.py
 ├── models.py
 ├── seed.py
 └── testing
@@ -58,17 +57,17 @@ $ tree
 ```
 
 The commands `flask db init` and `flask db migrate` have already been run, so
-the `server` directory contains the `instance` and `migrations` directories, and
+the `server` directory contains the `migrations` directory, and
 the directory `server/migrations/versions` contains an initial migration script.
 
-Run the following command to initialize the database from the existing migration
+Run the following command to create the `instance` directory with the database and initialize the database from the existing migration
 script:
 
 ```console
 $ flask db upgrade head
 ```
 
-The database file `app.db` should now appear within the `instance` folder:
+The `instance` folder should now appear along with the database file `app.db` inside it:
 
 ```text
 .
@@ -81,7 +80,7 @@ The database file `app.db` should now appear within the `instance` folder:
 │   ├── env.py
 │   ├── script.py.mako
 │   └── versions
-│       └── 7d3a66e71a07_initial_migration.py
+│       └── 51b06098cc9e_initial_migration.py
 ├── models.py
 ├── seed.py
 └── testing
