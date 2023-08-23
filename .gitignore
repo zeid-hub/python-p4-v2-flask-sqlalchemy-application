@@ -57,9 +57,9 @@ __pycache__
 
 
 *.db
-*/*.db
-migrations
-instance
+# */*.db
+# migrations
+# instance
 
 .vscode
 package-lock.json
