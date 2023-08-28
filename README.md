@@ -43,14 +43,13 @@ $ tree
 ```text
 .
 ├── app.py
-├── instance
 ├── migrations
 │   ├── README
 │   ├── alembic.ini
 │   ├── env.py
 │   ├── script.py.mako
 │   └── versions
-│       └── 7d3a66e71a07_initial_migration.py
+│       └── 51b06098cc9e_initial_migration.py
 ├── models.py
 ├── seed.py
 └── testing
@@ -58,17 +57,17 @@ $ tree
 ```
 
 The commands `flask db init` and `flask db migrate` have already been run, so
-the `server` directory contains the `instance` and `migrations` directories, and
+the `server` directory contains the `migrations` directory, and
 the directory `server/migrations/versions` contains an initial migration script.
 
-Run the following command to initialize the database from the existing migration
+Run the following command to create the `instance` directory with the database and initialize the database from the existing migration
 script:
 
 ```console
 $ flask db upgrade head
 ```
 
-The database file `app.db` should now appear within the `instance` folder:
+The `instance` folder should now appear along with the database file `app.db` inside it:
 
 ```text
 .
@@ -81,7 +80,7 @@ The database file `app.db` should now appear within the `instance` folder:
 │   ├── env.py
 │   ├── script.py.mako
 │   └── versions
-│       └── 7d3a66e71a07_initial_migration.py
+│       └── 51b06098cc9e_initial_migration.py
 ├── models.py
 ├── seed.py
 └── testing
@@ -164,7 +163,7 @@ moment to review:
 - `db.init_app` connects our database to our application before it runs.
 - `@app.route` determines which resources are available at which URLs and saves
   them to the application's URL map.
-- Responses are what we return to the client after a request. The included
+- Responses are what we return to the client after a request and `make_response` helps us with that. It is a function that allows you to create an HTTP response object that you can customize before returning it to the client. It's a useful tool for building more complex responses, especially when you need to set custom headers, cookies, or other response attributes.The included
   response has a status code of 200, which means that the resource exists and is
   accessible at the provided URL.
 
@@ -385,7 +384,6 @@ if __name__ == '__main__':
 
 ## Resources
 
-- [Quickstart -
-  Flask-SQLAlchemy][https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/]
+- [Quickstart - Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/)
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
 - [Flask Extensions, Plug-ins, and Related Libraries - Full Stack Python](https://www.fullstackpython.com/flask-extensions-plug-ins-related-libraries.html)
