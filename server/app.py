@@ -14,16 +14,7 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-
-@app.route('/')
-def index():
-    response = make_response(
-        '<h1>Welcome to the pet directory!</h1>',
-        200
-    )
-    return response
-
-# add routes here 
+# add views here 
 
 
 if __name__ == '__main__':

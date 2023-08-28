@@ -118,8 +118,7 @@ $ flask shell
 
 ## Serving Database Records in Flask Applications
 
-Open `server/app.py` and modify it to add a route to the `index()` view as shown
-below:
+Open `server/app.py` and modify it to add the `index()` view as shown below:
 
 ```py
 # server/app.py
