@@ -14,7 +14,7 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-# Add routes here
+# add views here 
 
 
 if __name__ == '__main__':
