@@ -57,17 +57,18 @@ $ tree
 ```
 
 The commands `flask db init` and `flask db migrate` have already been run, so
-the `server` directory contains the `migrations` directory, and
-the directory `server/migrations/versions` contains an initial migration script.
+the `server` directory contains the `migrations` directory, and the directory
+`server/migrations/versions` contains an initial migration script.
 
-Run the following command to create the `instance` directory with the database and initialize the database from the existing migration
-script:
+Run the following command to create the `instance` directory with the database
+and initialize the database from the existing migration script:
 
 ```console
 $ flask db upgrade head
 ```
 
-The `instance` folder should now appear along with the database file `app.db` inside it:
+The `instance` folder should now appear along with the database file `app.db`
+inside it:
 
 ```text
 .
@@ -163,7 +164,11 @@ moment to review:
 - `db.init_app` connects our database to our application before it runs.
 - `@app.route` determines which resources are available at which URLs and saves
   them to the application's URL map.
-- Responses are what we return to the client after a request and `make_response` helps us with that. It is a function that allows you to create an HTTP response object that you can customize before returning it to the client. It's a useful tool for building more complex responses, especially when you need to set custom headers, cookies, or other response attributes.The included
+- Responses are what we return to the client after a request and `make_response`
+  helps us with that. It is a function that allows you to create an HTTP
+  response object that you can customize before returning it to the client. It's
+  a useful tool for building more complex responses, especially when you need to
+  set custom headers, cookies, or other response attributes.The included
   response has a status code of 200, which means that the resource exists and is
   accessible at the provided URL.
 
@@ -176,7 +181,7 @@ python app.py
 In a browser, navigate to 127.0.0.1:5555. You should see this message in your
 browser:
 
-![h1 text "Welcome to the pet directory!" in Google Chrome](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/index.png)
+![h1 text "Welcome to the pet directory!" in Google Chrome](https://curriculum-content.s3.amazonaws.com/7159/python-p4-v2-flask-sqlalchemy/index_welcome_html.png)
 
 ### Creating Our Views
 
@@ -193,7 +198,7 @@ from flask_migrate import Migrate
 
 from models import db, Pet
 
-# after index()
+# add this view after index()
 
 @app.route('/pets/<int:id>')
 def pet_by_id(id):
@@ -221,31 +226,19 @@ now, but we still don't want our users to see error pages like this. Let's make
 another small change to the `pet_by_id()` view to fix this:
 
 ```py
-# server/app.py
-
-from flask import Flask, make_response
-from flask_migrate import Migrate
-
-from models import db, Pet
-
-# after index()
-
 @app.route('/pets/<int:id>')
 def pet_by_id(id):
     pet = Pet.query.filter(Pet.id == id).first()
 
-    if not pet:
-        response_body = f'<p>Pet {id} not found</p>'
-        response_status = 404
-    else:
+    if pet:
         response_body = f'<p>{pet.name} {pet.species}</p>'
         response_status = 200
+    else:
+        response_body = f'<p>Pet {id} not found</p>'
+        response_status = 404
 
     response = make_response(response_body, response_status)
     return response
-
-# if __name__ ...
-
 ```
 
 404 is the status code for "Not Found". It is generally used for the case we see
@@ -261,25 +254,6 @@ all rows that match the `species` route parameter, then loop through the query
 result to generate response information for each pet.
 
 ```py
-# server/app.py
-#!/usr/bin/env python3
-
-from flask import Flask, make_response
-from flask_migrate import Migrate
-
-from models import db, Pet
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-migrate = Migrate(app, db)
-
-db.init_app(app)
-
-
-# after pet_by_species()
-
 @app.route('/species/<string:species>')
 def pet_by_species(species):
     pets = Pet.query.filter_by(species=species).all()
@@ -290,11 +264,6 @@ def pet_by_species(species):
         response_body += f'<p>{pet.name}</p>'
     response = make_response(response_body, 200)
     return response
-
-
-if __name__ == '__main__':
-    app.run(port=5555, debug=True)
-
 ```
 
 The expression `species=species` passed into the `filter_by` function may be a
@@ -352,12 +321,12 @@ def index():
 def pet_by_id(id):
     pet = Pet.query.filter(Pet.id == id).first()
 
-    if not pet:
-        response_body = f'<p>Pet {id} not found</p>'
-        response_status = 404
-    else:
+    if pet:
         response_body = f'<p>{pet.name} {pet.species}</p>'
         response_status = 200
+    else:
+        response_body = f'<p>Pet {id} not found</p>'
+        response_status = 404
 
     response = make_response(response_body, response_status)
     return response
@@ -377,7 +346,6 @@ def pet_by_species(species):
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-
 ```
 
 ---
